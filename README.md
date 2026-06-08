@@ -1,2 +1,2 @@
-# physics-simulation
-a physics simulation on terminal (game-like)
+# Game (i guess)
+a game in based on terminal
