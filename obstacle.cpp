@@ -9,8 +9,6 @@ char screen[HEIGHT][WIDTH];
 // sebagai obstacle
 struct Obstacle {
   Vector2D position;
-  int width;
-  int height;
   bool isBroken;
   char symbol;
 };
