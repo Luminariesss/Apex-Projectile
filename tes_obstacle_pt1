@@ -1,0 +1,122 @@
+#include "obstacle.cpp"
+#include <iostream>
+#include <conio.h>
+#include <thread>
+#include <chrono>
+#include <ctime>
+#include <cstdlib>
+
+using namespace std;
+
+void pauseGame(){
+    _getch();
+}
+
+void renderBuffer(){
+	
+    for(int y=0; y<HEIGHT; y++){
+        for(int x=0; x<WIDTH; x++){
+        	
+            cout << screen[y][x];
+        }
+        cout << endl;
+    }
+}
+
+
+void clearBuffer(){
+    for(int y=0; y<HEIGHT; y++){
+        for(int x=0; x<WIDTH; x++)
+        {
+            screen[y][x] = ' ';
+        }
+    }
+}
+
+void randomObstacle(Obstacle &o){
+    o.position.x = 20 + rand() % (WIDTH - 25);
+    o.position.y = 3 + rand() % (HEIGHT - 6);
+
+    o.isBroken = false;
+    o.symbol = '#';
+}
+
+bool overlapObstacle(Obstacle &a,Obstacle &b);
+
+void generateObstacles(Obstacle obstacles[], int jumlah){
+    for(int i = 0; i < jumlah; i++){
+        bool valid;
+        do{
+            valid = true;
+            randomObstacle(obstacles[i]);
+            for(int j = 0; j < i; j++){
+                if(overlapObstacle(
+                    obstacles[i],
+                    obstacles[j])){
+                    valid = false;
+                    break;
+                }
+            }
+        } while(!valid);
+    }
+}
+
+void drawObstacle(const Obstacle &o){
+    int x = (int)o.position.x;
+    int y = (int)o.position.y;
+
+    if(
+        x >= 0 &&
+        x < WIDTH &&
+        y >= 0 &&
+        y < HEIGHT
+    ){
+        screen[y][x] = o.symbol;
+    }
+}
+
+void drawAllObstacles(Obstacle obstacles[], int jumlah){
+	
+    for(int i = 0; i < jumlah; i++){
+    	
+        drawObstacle(obstacles[i]);
+    }
+}
+
+bool overlapObstacle(Obstacle &a,Obstacle &b){
+    return (
+        (int)a.position.x == (int)b.position.x &&
+        (int)a.position.y == (int)b.position.y
+    );
+}
+
+void drawBorder(){
+    for(int x=0;x<WIDTH;x++){
+        screen[0][x]='-';
+        screen[HEIGHT-1][x]='-';
+    }
+
+    for(int y=0;y<HEIGHT;y++){
+        screen[y][0]='|';
+        screen[y][WIDTH-1]='|';
+    }
+
+    screen[0][0]='+';
+    screen[0][WIDTH-1]='+';
+
+    screen[HEIGHT-1][0]='+';
+    screen[HEIGHT-1][WIDTH-1]='+';
+}
+
+void showMap(Obstacle obstacles[],int jumlahObstacle){
+    clearBuffer();
+
+    drawBorder();
+
+    drawAllObstacles(
+        obstacles,
+        jumlahObstacle
+    );
+
+    renderBuffer();
+}

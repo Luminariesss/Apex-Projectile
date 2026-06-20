@@ -1,6 +1,10 @@
 #include "vector.cpp"
 #include <cstdlib>
 #include <ctime>
+#define HEIGHT 20
+#define WIDTH 70
+
+char screen[HEIGHT][WIDTH];
 
 // sebagai obstacle
 struct Obstacle {

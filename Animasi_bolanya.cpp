@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <cmath>
 using namespace std;
 
 void tempatkursor(int x, int y) {                //1. y : nomor baris         2. H = kek pindahin kursor ke sini
@@ -49,27 +50,45 @@ int main(){
 
     }}while(sudut!=30 && sudut!=45 && sudut!=60 && sudut!=75 && sudut!=90 || cin.fail());
     
-    cout<<"Masukkan kekuatan lemparan (1-10): ";
+    cout<<"Masukkan kekuatan lemparan (1-5): ";
     cin>>kekuatan;  
-    while((kekuatan < 1 || kekuatan > 10) || cin.fail()){
+    while((kekuatan < 1 || kekuatan > 5) || cin.fail()){
         cin.clear(); cin.ignore(100,'\n');
         cout<<"\033[31m"<<"[!] Input tidak valid\n"<<"\033[0m";
         cout<<"Masukkan kekuatan lemparan (1-5): ";
         cin>>kekuatan;
     }
     float(kekuatan/10);
- 
+
 //  =================== buat ngatur kecepatan bolanya ===================================
 
     float vx, vy;
-    switch(sudut){
-        case 30: vx=0.5*kekuatan;  vy=-0.1*kekuatan;  break;
-        case 45: vx=0.5*kekuatan;    vy=-0.2*kekuatan;  break;
-        case 60: vx=0.5*kekuatan;    vy=-0.3*kekuatan;  break;
-        case 75: vx=0.5*kekuatan;    vy=-0.4*kekuatan;  break;
-        case 90: vx=0;             vy=-0.5*kekuatan;  break;
-    }
+    // switch(sudut){
+    //     case 30: vx=2.5*kekuatan;  vy=-0.5*kekuatan;  break;
+    //     case 45: vx=2*kekuatan;    vy=-0.6*kekuatan;  break;
+    //     case 60: vx=1.8*kekuatan;    vy=-0.7*kekuatan;  break;
+    //     case 75: vx=1.5*kekuatan;    vy=-0.8*kekuatan;  break;
+    //     case 90: vx=0;             vy=-0.9*kekuatan;  break;
+    // }
     
+    float kecepatan = 6.0f; // kecepatan dasar, bisa diubah
+    switch(sudut){
+        case 30: vx = kecepatan * cos(30*3.14159/180);  // vx = 5.196
+                vy = kecepatan * -sin(30*3.14159/180); // vy = -3.0
+                break;
+        case 45: vx = kecepatan * cos(45*3.14159/180);  // vx = 4.243
+                vy = kecepatan * -sin(45*3.14159/180); // vy = -4.243
+                break;
+        case 60: vx = kecepatan * cos(60*3.14159/180);  // vx = 3.0
+                vy = kecepatan * -sin(60*3.14159/180); // vy = -5.196
+                break;
+        case 75: vx = kecepatan * cos(75*3.14159/180);  // vx = 1.553
+                vy = kecepatan * -sin(75*3.14159/180); // vy = -5.796
+                break;
+        case 90: vx = kecepatan * cos(90*3.14159/180);  // vx = 0
+                vy = kecepatan * -sin(90*3.14159/180); // vy = -6.0
+                break;
+    }
 
 //  =============================DI BAWAH MULAI JALANIN BOLANYA======================================
     hidecursor();
