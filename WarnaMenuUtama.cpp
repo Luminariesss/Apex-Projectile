@@ -9,9 +9,17 @@ void startGame();
 void petunjuk();
 void tentang();
 
+void setKursorHome() { cout << "\033[H" << flush;}
+void hideKursor() { cout << "\033[?25l" << flush;}
+void showKursor()    { cout << "\033[?25h" << flush;}
+void clearScreen()   { cout << "\033[2J\033[3J\033[1;1H"; }
+
 void tampilMenu(int pilihan)
 {
-    system("cls");
+    hideKursor();
+    clearScreen();
+    hideKursor();
+   
 
     string menu[4] = {
         "START",
@@ -73,6 +81,7 @@ cout << "\n";
     cout << "\t\t\t\t\t     Tekan ENTER untuk melanjutkan\n";
 
     SetConsoleTextAttribute(h, 7);
+    showKursor();
 }
 void startGame()
 {
@@ -87,7 +96,7 @@ void startGame()
 
 void petunjuk()
 {
-    system("cls");
+    clearScreen();
 
     cout << "================ HOW TO PLAY ================\n\n";
 
@@ -104,6 +113,7 @@ void tentang()
     cout << "Tekan tombol apa saja untuk kembali...";
     getch();
 }
+
 
 int main()
 {
@@ -130,7 +140,7 @@ int main()
             else if (tombol == 80) // Panah Bawah
             {
                 pilihan++;
-
+                clearScreen();
                 if (pilihan > 3)
                     pilihan = 0;
             }

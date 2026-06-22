@@ -14,7 +14,7 @@ struct GameConfig {
   const float scale = 0.25f;
   static const int width_chars = 60;
   static const int height_chars = 20;
-  const int padding_left = 40;
+  const int padding_left = 75;
   static const int max_particles = 50;
   static const int max_obstacles = 30;
   const int max_attempts = 3;
@@ -456,7 +456,7 @@ void displayGameResult(const GameContext &ctx) {
                          ctx.config.reset,
                      ctx.config.padding_left);
     printWithPadding(ctx.config.bold + ctx.config.green +
-                         " SUCCESS: TARGET '@' HANCUR! LU MENANG!\n" +
+                         " SUCCESS: TARGET '@' HANCUR KAMU MENANG!\n" +
                          ctx.config.reset,
                      ctx.config.padding_left);
     printWithPadding(ctx.config.green +
@@ -468,7 +468,7 @@ void displayGameResult(const GameContext &ctx) {
                          ctx.config.reset,
                      ctx.config.padding_left);
     printWithPadding(ctx.config.bold + ctx.config.red +
-                         " GAME OVER: SISA NYAWA HABIS (0/3).\n" +
+                         " GAME OVER: SISA KESEMPATAN HABIS (0/3).\n" +
                          ctx.config.reset,
                      ctx.config.padding_left);
     printWithPadding(ctx.config.red + "====================================\n" +
@@ -478,26 +478,27 @@ void displayGameResult(const GameContext &ctx) {
   cout << "\n";
 }
 
-int main() {
-  srand(time(0));
 
-  GameContext ctx;
-  ctx.tower = new Obstacle[GameConfig::max_obstacles];
+// int main() {
+//   srand(time(0));
 
-  generateLevel(ctx);
-  ctx.targetFallen = (ctx.targetY < ctx.lantaiMeter);
+//   GameContext ctx;
+//   ctx.tower = new Obstacle[GameConfig::max_obstacles];
 
-  cout << "\033[2J\033[?25l";
+//   generateLevel(ctx);
+//   ctx.targetFallen = (ctx.targetY < ctx.lantaiMeter);
 
-  for (int attempt = 1; attempt <= ctx.config.max_attempts; attempt++) {
-    ctx.gameWon = runRoundSimulation(attempt, ctx);
-    if (ctx.gameWon)
-      break;
-  }
+//   cout << "\033[2J\033[?25l";
 
-  displayGameResult(ctx);
+//   for (int attempt = 1; attempt <= ctx.config.max_attempts; attempt++) {
+//     ctx.gameWon = runRoundSimulation(attempt, ctx);
+//     if (ctx.gameWon)
+//       break;
+//   }
 
-  delete[] ctx.tower;
-  cout << "\033[?25h";
-  return 0;
-}
+//   displayGameResult(ctx);
+
+//   delete[] ctx.tower;
+//   cout << "\033[?25h";
+//   return 0;
+// }

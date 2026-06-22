@@ -12,7 +12,7 @@ void delay (int MS) {
     this_thread::sleep_for(chrono::milliseconds(MS));
 }
 
-void ketik (string teks, int kecMS = 50){
+void ketik (string teks, int kecMS = 10){
     for (char c : teks){
         cout << c;
         cout.flush();
@@ -49,7 +49,7 @@ void BGStory (){
     delay (500);
     ketik ("\n\t-Prof.George\n\n");
 
-    cout << "[Tekan ENTER untuk memulai...]";
+    cout << "[Tekan ENTER untuk kembali ke menu...]";
     cin.get();
 
 }
